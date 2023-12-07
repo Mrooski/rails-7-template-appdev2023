@@ -1,0 +1,134 @@
+<div>
+  <div>
+    <h1>
+      List of all trades
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new trade
+    </h2>
+
+    <form action="/insert_trade" method="post">
+      <div>
+        <label for="sender_id_box">
+          Sender
+        </label>
+
+        <input type="text" id="sender_id_box" name="query_sender_id">
+      </div>
+
+      <div>
+        <label for="reciever_id_box">
+          Reciever
+        </label>
+
+        <input type="text" id="reciever_id_box" name="query_reciever_id">
+      </div>
+
+      <div>
+        <label for="asset_id_box">
+          Asset
+        </label>
+
+        <input type="text" id="asset_id_box" name="query_asset_id">
+      </div>
+
+      <div>
+        <label for="asset_quantity_box">
+          Asset quantity
+        </label>
+
+        <input type="text" id="asset_quantity_box" name="query_asset_quantity">
+      </div>
+
+      <button>
+        Create trade
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Sender
+        </th>
+
+        <th>
+          Reciever
+        </th>
+
+        <th>
+          Asset
+        </th>
+
+        <th>
+          Asset quantity
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_trades.each do |a_trade| %>
+      <tr>
+        <td>
+          <%= a_trade.id %>
+        </td>
+
+        <td>
+          <%= a_trade.sender_id %>
+        </td>
+
+        <td>
+          <%= a_trade.reciever_id %>
+        </td>
+
+        <td>
+          <%= a_trade.asset_id %>
+        </td>
+
+        <td>
+          <%= a_trade.asset_quantity %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_trade.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_trade.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/trades/<%= a_trade.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      List of all assets
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new asset
+    </h2>
+
+    <form action="/insert_asset" method="post">
+      <div>
+        <label for="price_in_usd_box">
+          Price in usd
+        </label>
+
+        <input type="text" id="price_in_usd_box" name="query_price_in_usd">
+      </div>
+
+      <button>
+        Create asset
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Price in usd
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_assets.each do |an_asset| %>
+      <tr>
+        <td>
+          <%= an_asset.id %>
+        </td>
+
+        <td>
+          <%= an_asset.price_in_usd %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(an_asset.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(an_asset.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/assets/<%= an_asset.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
