@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   # Routes for the Trade resource:
 
-  root "assets#index"
+  root to: "assets#index"
+
+  get("/", {:controller => "assets", :action => "index"})
 
   # CREATE
   post("/insert_trade", { :controller => "trades", :action => "create" })

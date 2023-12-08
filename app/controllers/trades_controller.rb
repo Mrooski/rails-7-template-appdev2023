@@ -8,9 +8,9 @@ class TradesController < ApplicationController
   end
 
   def show
-    the_id = params.fetch("path_id")
+    the_id = current_user.id
 
-    matching_trades = Trade.where({ :id => the_id })
+    matching_trades = Trade.where({ :sender_id => the_id })
 
     @the_trade = matching_trades.at(0)
 
