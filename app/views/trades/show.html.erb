@@ -1,0 +1,116 @@
+<div>
+  <div>
+    <h1>
+      Trade #<%= @the_trade.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/trades">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_trade/<%= @the_trade.id %>">
+          Delete trade
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Sender
+      </dt>
+      <dd>
+        <%= @the_trade.sender_id %>
+      </dd>
+
+      <dt>
+        Reciever
+      </dt>
+      <dd>
+        <%= @the_trade.reciever_id %>
+      </dd>
+
+      <dt>
+        Asset
+      </dt>
+      <dd>
+        <%= @the_trade.asset_id %>
+      </dd>
+
+      <dt>
+        Asset quantity
+      </dt>
+      <dd>
+        <%= @the_trade.asset_quantity %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_trade.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_trade.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit trade
+    </h2>
+
+    <form action="/modify_trade/<%= @the_trade.id %>"  method="post" >
+      <div>
+        <label for="sender_id_box">
+          Sender
+        </label>
+
+        <input type="text" id="sender_id_box" name="query_sender_id" value="<%= @the_trade.sender_id %>">
+      </div>
+
+      <div>
+        <label for="reciever_id_box">
+          Reciever
+        </label>
+
+        <input type="text" id="reciever_id_box" name="query_reciever_id" value="<%= @the_trade.reciever_id %>">
+      </div>
+
+      <div>
+        <label for="asset_id_box">
+          Asset
+        </label>
+
+        <input type="text" id="asset_id_box" name="query_asset_id" value="<%= @the_trade.asset_id %>">
+      </div>
+
+      <div>
+        <label for="asset_quantity_box">
+          Asset quantity
+        </label>
+
+        <input type="text" id="asset_quantity_box" name="query_asset_quantity" value="<%= @the_trade.asset_quantity %>">
+      </div>
+
+      <button>
+        Update trade
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

@@ -1,0 +1,71 @@
+<div>
+  <div>
+    <h1>
+      Asset #<%= @the_asset.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/assets">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_asset/<%= @the_asset.id %>">
+          Delete asset
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Price in usd
+      </dt>
+      <dd>
+        <%= @the_asset.price_in_usd %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_asset.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_asset.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit asset
+    </h2>
+
+    <form action="/modify_asset/<%= @the_asset.id %>"  method="post" >
+      <div>
+        <label for="price_in_usd_box">
+          Price in usd
+        </label>
+
+        <input type="text" id="price_in_usd_box" name="query_price_in_usd" value="<%= @the_asset.price_in_usd %>">
+      </div>
+
+      <button>
+        Update asset
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
