@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  root "assets#index"
   # Routes for the Trade resource:
 
   # CREATE
