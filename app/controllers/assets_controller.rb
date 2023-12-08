@@ -20,6 +20,8 @@ class AssetsController < ApplicationController
   def create
     the_asset = Asset.new
     the_asset.price_in_usd = params.fetch("query_price_in_usd")
+    the_asset.name = params.fetch("query_name")
+    the_asset.ticker = params.fetch("query_ticker")
 
     if the_asset.valid?
       the_asset.save
@@ -34,6 +36,8 @@ class AssetsController < ApplicationController
     the_asset = Asset.where({ :id => the_id }).at(0)
 
     the_asset.price_in_usd = params.fetch("query_price_in_usd")
+    the_asset.name = params.fetch("query_name")
+    the_asset.ticker = params.fetch("query_ticker")
 
     if the_asset.valid?
       the_asset.save

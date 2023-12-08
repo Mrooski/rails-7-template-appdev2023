@@ -10,11 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_08_004126) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_08_020205) do
   create_table "assets", force: :cascade do |t|
     t.float "price_in_usd"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "ticker"
   end
 
   create_table "trades", force: :cascade do |t|
