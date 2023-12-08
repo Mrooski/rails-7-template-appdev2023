@@ -1,14 +1,14 @@
 <div>
   <div>
-    <h1>
-      List of all assets
+    <h1 class="text-warning">
+      Assets on Anova
     </h1>
   </div>
 </div>
 
-<hr>
+<!-- <hr> -->
 
-<div>
+<!-- <div>
   <div>
     <h2>
       Add a new asset
@@ -28,55 +28,35 @@
       </button>
     </form>
   </div>
-</div>
+</div> -->
 
-<hr>
+<!-- <hr> -->
 <div>
   <div>
-    <table border="1">
-      <tr>
-        <th>
-          Name
+    <table class="table table-dark table-striped table-sm w-25">
+      <tr >
+        <th class="text-warning">
+          <u>Ticker</u>
         </th>
 
-        <th>
-          Price
+        <th class="text-warning">
+          <u>Price</u>
         </th>
 
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
-        </th>
-
-        <th>
-        </th>
       </tr>
 
       <% @list_of_assets.each do |an_asset| %>
       <tr>
         <td>
-          <%= an_asset.name %>
-        </td>
-
-        <td>
-          $<%= an_asset.price_in_usd %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(an_asset.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(an_asset.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/assets/<%= an_asset.id %>">
-            Show details
+          <a class="text-danger" href="/assets/<%= an_asset.id %>">
+          <%= an_asset.ticker %>
           </a>
         </td>
+
+        <td class="text-warning">
+          <%= number_to_currency(an_asset.price_in_usd) %>
+        </td>
+
       </tr>
       <% end %>
     </table>
