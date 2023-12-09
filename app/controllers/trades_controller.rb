@@ -1,8 +1,42 @@
 class TradesController < ApplicationController
   def index
-    matching_trades = Trade.all
 
-    @list_of_trades = matching_trades.order({ :created_at => :desc })
+    user_id = current_user.id
+
+    recieved_trades = Trade.where({:reciever_id => user_id})
+    sent_trades = Trade.where({:sender_id => user_id})
+
+    @list_of_trades = (recieved_trades + sent_trades)
+
+    @asset_totals = []
+
+    @net_value = 0
+
+    Asset.all.each do |asset|
+      
+      id = asset.id
+      total = 0
+
+      @list_of_trades.each do |trade|
+        if trade.asset.id == id
+          if trade.reciever_id == user_id
+            total = total + trade.asset_quantity.to_i
+          elsif trade.sender_id == user_id
+            total = total - trade.asset_quantity.to_i
+          end
+
+        end
+      end
+
+      if total > 0
+        @asset_totals.push([asset.ticker, total, total*asset.price_in_usd, asset.id])
+      end
+
+    end
+
+    @asset_totals.each do |asset|
+      @net_value = @net_value + asset[2]
+    end
 
     render({ :template => "trades/index" })
   end
@@ -19,7 +53,7 @@ class TradesController < ApplicationController
 
   def create
     the_trade = Trade.new
-    the_trade.sender_id = params.fetch("query_sender_id")
+    the_trade.sender_id = current_user.id
     the_trade.reciever_id = params.fetch("query_reciever_id")
     the_trade.asset_id = params.fetch("query_asset_id")
     the_trade.asset_quantity = params.fetch("query_asset_quantity")

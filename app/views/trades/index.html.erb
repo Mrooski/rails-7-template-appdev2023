@@ -1,27 +1,13 @@
-<div>
-  <div>
-    <h1>
-      List of all trades
-    </h1>
-  </div>
-</div>
 
 <hr>
 
 <div>
-  <div>
+  <div class= "w-25">
     <h2>
-      Add a new trade
+      Send Asset
     </h2>
 
     <form action="/insert_trade" method="post">
-      <div>
-        <label for="sender_id_box">
-          Sender
-        </label>
-
-        <input type="text" id="sender_id_box" name="query_sender_id">
-      </div>
 
       <div>
         <label for="reciever_id_box">
@@ -32,41 +18,75 @@
       </div>
 
       <div>
+        <label for="asset_id_box">Asset</label>
+        <select class="form-select w-25" id="asset_id_box" name="query_asset_id">
+          <option selected>Choose...</option>
+          <% @asset_totals.each do |asset|%>
+          <option value="<%= asset[3]%>"><%= asset[0]%></option>
+          <% end %>
+        </select>
+      </div>
+
+      <!-- <div>
         <label for="asset_id_box">
           Asset
         </label>
 
         <input type="text" id="asset_id_box" name="query_asset_id">
-      </div>
+      </div> -->
 
       <div>
         <label for="asset_quantity_box">
-          Asset quantity
+          Quantity
         </label>
 
         <input type="text" id="asset_quantity_box" name="query_asset_quantity">
       </div>
 
-      <button>
-        Create trade
+      <button class="btn btn-warning">
+        Send asset
       </button>
     </form>
   </div>
 </div>
 
 <hr>
+
+<H2>Your Assets</H2>
+
+<div>
+  <table class="table table-dark table-striped table-sm w-25">
+    <tr>
+      <th>Asset</th>
+      <th>Amt. Owned</th>
+      <th>Value</th>
+    </tr>
+
+    <% @asset_totals.each do |asset|%>
+      <tr>
+      <td><%=asset[0]%></td>
+      <td><%=asset[1]%></td>
+      <td><%=number_to_currency(asset[2])%></td>
+      </tr>
+    <% end %>
+
+    <tr>
+
+    <th class="text-warning">Net value</th>
+    <th> </th>
+    <th>
+      <%= number_to_currency(@net_value)%>
+    </th>
+    
+    </tr>
+  </table>
+</div>
+
+<!-- <hr>
 <div>
   <div>
-    <table border="1">
+    <table class="table table-dark table-striped table-sm w-25">
       <tr>
-
-        <th>
-          Sender
-        </th>
-
-        <th>
-          Reciever
-        </th>
 
         <th>
           Asset
@@ -77,14 +97,7 @@
         </th>
 
         <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
-        </th>
-
-        <th>
+          Value
         </th>
       </tr>
 
@@ -92,15 +105,7 @@
       <tr>
 
         <td>
-          <%= a_trade.sender_id %>
-        </td>
-
-        <td>
-          <%= a_trade.reciever_id %>
-        </td>
-
-        <td>
-          <%= a_trade.asset_id %>
+          <%= a_trade.asset.ticker %>
         </td>
 
         <td>
@@ -108,21 +113,13 @@
         </td>
 
         <td>
-          <%= time_ago_in_words(a_trade.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_trade.updated_at) %> ago
+          <%= number_to_currency(a_trade.asset_quantity.to_f * a_trade.asset.price_in_usd) %>
         </td>
 
-        <td>
-          <a href="/trades/<%= a_trade.id %>">
-            Show details
-          </a>
-        </td>
       </tr>
       <% end %>
     </table>
   </div>
 </div>
 
-<hr>
+<hr> -->
