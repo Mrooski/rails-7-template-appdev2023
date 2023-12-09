@@ -52,16 +52,32 @@ class TradesController < ApplicationController
   end
 
   def create
+
+    temp_asset_id = params.fetch("query_asset_id")
+
+    total = 0
+
+    Trade.where({:asset_id => temp_asset_id}).each do |trade|
+        if trade.reciever_id == current_user.id
+          total = total + trade.asset_quantity.to_i
+        elsif trade.sender_id == current_user.id
+          total = total - trade.asset_quantity.to_i
+        end
+    end
+
+
     the_trade = Trade.new
     the_trade.sender_id = current_user.id
-    the_trade.reciever_id = params.fetch("query_reciever_id")
+    the_trade.reciever_id = User.where({:email => params.fetch("query_reciever_email")}).at(0).id
     the_trade.asset_id = params.fetch("query_asset_id")
     the_trade.asset_quantity = params.fetch("query_asset_quantity")
 
-    if the_trade.valid?
+    if total <= the_trade.asset_quantity.to_i
+      redirect_to("/trades", { :alert => "You don't have enough #{the_trade.asset.name}"})
+    elsif the_trade.valid?
       the_trade.save
       redirect_to("/trades", { :notice => "Trade created successfully." })
-    else
+    elsif
       redirect_to("/trades", { :alert => the_trade.errors.full_messages.to_sentence })
     end
   end
